@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { message, Statistic, TimePicker, Modal, Switch, Input } from "antd";
+import {
+  message,
+  Statistic,
+  TimePicker,
+  Modal,
+  Switch,
+  Input,
+  Skeleton,
+  Divider,
+} from "antd";
 import Day from "dayjs";
+
+import { SettingOutlined } from "@ant-design/icons";
 
 const { Countdown } = Statistic;
 const { confirm } = Modal;
@@ -20,7 +31,6 @@ function App() {
 
   useEffect(() => {
     const _userName = localStorage.getItem(LOCAL_USER_NAME_KEY);
-    console.log("isFriday", isFriday);
     if (_userName) {
       setuserName(_userName);
     } else {
@@ -36,7 +46,7 @@ function App() {
 
   const onSwitchChange = () => {};
 
-  const onRememberTime = () => {
+  const onOpenTimeSetting = () => {
     confirm({
       content: (
         <div>
@@ -95,37 +105,64 @@ function App() {
           maxLength={10}
         />
       </Modal>
-      <h2 className="username">Hi, {userName}</h2>
-      <div className="card">
-        {/* <EditTwoTone onClick={onRememberTime} className="edit-icon" /> */}
-        <h2 className="card-title">距离下班时间：</h2>
-        <Countdown value={dealLine} format="HH:mm:ss:SSS" onFinish={onFinish} />
-      </div>
-      <div className="card">
-        <h2 className="card-title">今天是周五吗？</h2>
-        {isFriday ? (
-          <div
-            style={{
-              textAlign: "center",
-              fontSize: "50px",
-              fontWeight: "bolder",
-            }}
-          >
-            是!
+      {modalVisible ? (
+        <>
+          {/* <Skeleton avatar shape="square" /> */}
+          <Skeleton active />
+          <Divider />
+          <Skeleton active />
+        </>
+      ) : (
+        <>
+          <h2 className="username">Hi, {userName}</h2>
+          <div className="card">
+            {/* <EditTwoTone onClick={onRememberTime} className="edit-icon" /> */}
+            <h2 className="card-title">
+              距离下班时间：
+              <SettingOutlined
+                style={{
+                  fontSize: "16px",
+                  color: "#fb8e4f",
+                  position: "absolute",
+                  right: "20px",
+                  top: "20px",
+                }}
+                onClick={onOpenTimeSetting}
+              />
+            </h2>
+            <Countdown
+              value={dealLine}
+              format="HH:mm:ss:SSS"
+              onFinish={onFinish}
+            />
           </div>
-        ) : (
-          <div style={{ fontSize: "23px" }}>
-            <div>😢不是</div>
-            <div>
-              距离周五还有{" "}
-              <span style={{ fontWeight: "600" }}>
-                {_DATE >= 0 && _DATE <= 4 ? 5 - _DATE : 6}
-              </span>{" "}
-              天
-            </div>
+          <div className="card">
+            <h2 className="card-title">今天是周五吗？</h2>
+            {isFriday ? (
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: "50px",
+                  fontWeight: "bolder",
+                }}
+              >
+                是!
+              </div>
+            ) : (
+              <div style={{ fontSize: "23px" }}>
+                <div>😢不是</div>
+                <div>
+                  距离周五还有{" "}
+                  <span style={{ fontWeight: "600" }}>
+                    {_DATE >= 0 && _DATE <= 4 ? 5 - _DATE : 6}
+                  </span>{" "}
+                  天
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 }
