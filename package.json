@@ -2,6 +2,7 @@
   "name": "countdown",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://fguizc.github.io/happy-time",
   "dependencies": {
     "@craco/craco": "^5.7.0",
     "@testing-library/jest-dom": "^4.2.4",
