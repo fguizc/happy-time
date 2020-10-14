@@ -5,7 +5,6 @@ import {
   Statistic,
   TimePicker,
   Modal,
-  Switch,
   Input,
   Skeleton,
   Divider,
@@ -24,6 +23,8 @@ const LOCAL_DEAD_LINE_KEY = "localDealLine";
 const LOCAL_USER_NAME_KEY = "localUserName";
 const isFriday = _DATE === 5;
 
+let newDeadLine = 0;
+
 function App() {
   const [dealLine, setdealLine] = useState(DEFAULT_DEAD_LINE);
   const [userName, setuserName] = useState("");
@@ -36,15 +37,21 @@ function App() {
     } else {
       setModalVisible(true);
     }
-  }, []);
+  }, [userName]);
 
   const onFinish = () => {
     message.success(`下班啦！又是一天美好时间`);
   };
 
-  const onTimeChange = () => {};
-
-  const onSwitchChange = () => {};
+  const onTimeChange = (value) => {
+    const hour = value.hour();
+    const min = value.minute() || 0;
+    const result = TODAY.startOf("day")
+      .set("hour", hour)
+      .set("minute", min)
+      .valueOf();
+    newDeadLine = result;
+  };
 
   const onOpenTimeSetting = () => {
     confirm({
@@ -52,23 +59,36 @@ function App() {
         <div>
           <label htmlFor="">请选择下班时间：</label>
           <br />
-          <TimePicker onChange={onTimeChange} />
+          <TimePicker
+            onChange={onTimeChange}
+            disabledSeconds={disabledSeconds}
+          />
           <br />
-          <label htmlFor="">是否记住下班时间：</label>
+          {/* <label htmlFor="">是否记住下班时间：</label>
           <br />
-          <Switch onChange={onSwitchChange} />
+          <Switch onChange={onSwitchChange} /> */}
         </div>
       ),
       icon: null,
       okText: "确定",
       cancelText: "取消",
-      onOk(...arg) {
-        console.log("OK", arg);
-
-        localStorage.setItem(LOCAL_DEAD_LINE_KEY);
-        setdealLine(arg);
+      onOk() {
+        setTimeout(() => {
+          localStorage.setItem(LOCAL_DEAD_LINE_KEY, newDeadLine);
+          setdealLine(newDeadLine);
+        }, 0);
       },
     });
+  };
+
+  const disabledSeconds = () => {
+    const _seconds = [];
+    for (let i = 0; i < 60; i++) {
+      if (i !== 0) {
+        _seconds.push(i);
+      }
+    }
+    return _seconds;
   };
 
   const onUserNameChange = (e) => {
@@ -150,7 +170,13 @@ function App() {
               </div>
             ) : (
               <div style={{ fontSize: "23px" }}>
-                <div>😢不是</div>
+                <span
+                  aria-label="not friday"
+                  aria-labelledby="not friday"
+                  role="img"
+                >
+                  😢不是
+                </span>
                 <div>
                   距离周五还有{" "}
                   <span style={{ fontWeight: "600" }}>
