@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/happy-time/static/css/main.baa92cad.chunk.css",
+    "main.js": "/happy-time/static/js/main.b0f77a5b.chunk.js",
+    "main.js.map": "/happy-time/static/js/main.b0f77a5b.chunk.js.map",
+    "runtime-main.js": "/happy-time/static/js/runtime-main.68f9f4b3.js",
+    "runtime-main.js.map": "/happy-time/static/js/runtime-main.68f9f4b3.js.map",
+    "static/css/2.0cb1e811.chunk.css": "/happy-time/static/css/2.0cb1e811.chunk.css",
+    "static/js/2.e2d472ae.chunk.js": "/happy-time/static/js/2.e2d472ae.chunk.js",
+    "static/js/2.e2d472ae.chunk.js.map": "/happy-time/static/js/2.e2d472ae.chunk.js.map",
+    "index.html": "/happy-time/index.html",
+    "precache-manifest.2d108da48eab225df8bce9edd4003e2d.js": "/happy-time/precache-manifest.2d108da48eab225df8bce9edd4003e2d.js",
+    "service-worker.js": "/happy-time/service-worker.js",
+    "static/css/2.0cb1e811.chunk.css.map": "/happy-time/static/css/2.0cb1e811.chunk.css.map",
+    "static/css/main.baa92cad.chunk.css.map": "/happy-time/static/css/main.baa92cad.chunk.css.map",
+    "static/js/2.e2d472ae.chunk.js.LICENSE.txt": "/happy-time/static/js/2.e2d472ae.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.68f9f4b3.js",
+    "static/css/2.0cb1e811.chunk.css",
+    "static/js/2.e2d472ae.chunk.js",
+    "static/css/main.baa92cad.chunk.css",
+    "static/js/main.b0f77a5b.chunk.js"
+  ]
+}
